@@ -9,11 +9,11 @@ import (
 
 var viper *lib.Viper
 
-func NewViper(filename string) {
+func NewViper(filename, path string) {
 	viper = lib.New()
 	viper.SetConfigName(filename)
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("./config")
+	viper.AddConfigPath(path)
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
@@ -29,6 +29,10 @@ func internalGet(path string, defaultValue ...interface{}) interface{} {
 		return nil
 	}
 	return viper.Get(path)
+}
+
+func Get(path string, defaultValue ...interface{}) string {
+	return String(path, defaultValue...)
 }
 
 // String 获取 String 类型的配置信息
