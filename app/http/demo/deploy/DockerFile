@@ -19,7 +19,7 @@ RUN apk add tzdata
 
 
 COPY --from=go_builder /app/demo /demo
-COPY --from=go_builder /app/.yaml /.yaml
+COPY --from=go_builder /app/config/env.yaml /config/env.yaml
 
 
 EXPOSE 80
