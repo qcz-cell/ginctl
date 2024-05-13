@@ -6,16 +6,11 @@ import (
 	"ginctl/package/get"
 	"github.com/gin-gonic/gin"
 	"log"
-	"os"
 )
 
 func main() {
-	pwd, err := os.Getwd()
-	if err != nil {
-		panic(fmt.Sprintf("%v", err))
-	}
 	// 加载配置文件
-	get.NewViper("env.yaml", fmt.Sprintf("%s/app/http/demo/config", pwd))
+	get.NewViper("env.yaml", "./config")
 
 	// 启动基础服务
 	bootstrap.SetupLogger()
@@ -32,7 +27,7 @@ func main() {
 	// 运行http服务
 	log.Println("demo api serve start: " + get.String("app.host") +
 		":" + get.String("app.port"))
-	err = router.Run(fmt.Sprintf("%s:%d",
+	err := router.Run(fmt.Sprintf("%s:%d",
 		get.Get("app.host"), get.Int("app.port")))
 	if err != nil {
 		panic("Unable to start server, error: " + err.Error())

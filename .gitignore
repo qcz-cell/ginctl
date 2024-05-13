@@ -3,7 +3,7 @@
 .vscode
 
 # 配置文件
-app/http/**/config/*.yaml
+config/*.yaml
 
 # 日志文件
 app/**/storage/*.log
