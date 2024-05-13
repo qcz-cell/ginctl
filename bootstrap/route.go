@@ -2,25 +2,25 @@ package bootstrap
 
 import (
 	"ginctl/app/http/demo/route"
-	m "ginctl/app/middleware"
+	"ginctl/app/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 func RegisterGlobalMiddleware(router *gin.Engine) {
 	router.Use(
-		m.Logger(),
-		m.Recovery(),
-		m.Cors(),
-		m.ForceUA(),
-
+		middlewares.Logger(),
+		middlewares.Recovery(),
+		middlewares.Cors(),
+		middlewares.ForceUA(),
+		// register global middleware.
 		// {{.GlobalMiddleware}}
 	)
 }
 
 func RegisterDemoApiRoute(router *gin.Engine) {
-	// 注册全局中间件
+	// global middleware.
 	RegisterGlobalMiddleware(router)
-	// 初始化路由
+	// Initialize route.
 	route.RegisterDemoAPI(router)
 }
 
