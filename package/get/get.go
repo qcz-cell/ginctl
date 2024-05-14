@@ -18,6 +18,7 @@ func NewViper(filename, path string) {
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
+	viper.WatchConfig()
 }
 
 func internalGet(path string, defaultValue ...interface{}) interface{} {

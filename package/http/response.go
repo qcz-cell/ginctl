@@ -15,6 +15,16 @@ func Success(c *gin.Context) {
 	})
 }
 
+// Alert404Route 路由不存在
+func Alert404Route(router *gin.Engine) {
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, gin.H{
+			"code":    StatusNotFound,
+			"message": StatusText(StatusNotFound),
+		})
+	})
+}
+
 // Alert400WithoutMessage 客户端请求错误 不传具体信息
 func Alert400WithoutMessage(c *gin.Context, code Code) {
 	c.JSON(http.StatusBadRequest, gin.H{
@@ -64,6 +74,7 @@ const (
 const (
 	StatusBadRequest Code = iota + 400000
 	MissUserAgent
+	StatusNotFound
 )
 
 const (
@@ -77,6 +88,7 @@ var statusText = map[Code]string{
 
 	StatusBadRequest: "客户端请求错误",
 	MissUserAgent:    "请求头部缺少 User-Agent",
+	StatusNotFound:   "路由不存在",
 
 	StatusInternalServerError: "系统错误",
 }
